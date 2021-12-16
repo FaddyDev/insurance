@@ -30,8 +30,9 @@ $this->menu=array(
 		'policy_cover_type',
 		//'policy_price',
 		array(
-			'label'=>'Price (Ksh)',
-			'value'=>$model->policy_price,
+			'name'=>'policy_price',
+			//'label'=>'Price (Ksh)',
+			'value'=>$model->policy_cover_type=="Car"? $model->policy_price."%" : "Ksh ".$model->policy_price,
 			),
 		//'policy_period',
 		array(

@@ -67,6 +67,12 @@
 		<?php echo $form->error($model,'car_make'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'car_value'); ?>
+		<?php echo $form->textField($model,'car_value',array('size'=>20,'maxlength'=>20)); ?>
+		<?php echo $form->error($model,'car_value'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

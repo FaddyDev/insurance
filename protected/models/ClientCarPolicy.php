@@ -12,6 +12,7 @@
  * @property string $car_year_of_manufacture
  * @property string $car_use
  * @property string $car_make
+ * @property double $car_value
  *
  * The followings are the available model relations:
  * @property ClientCarPolicy $fkCp
@@ -35,14 +36,14 @@ class ClientCarPolicy extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('fk_cp_id, car_number_plate, car_model, car_carrying_capacity, car_year_of_manufacture, car_use, car_make', 'required'),
-			array('pk_car_id, fk_cp_id, car_carrying_capacity', 'numerical', 'integerOnly'=>true),
+			array('fk_cp_id, car_number_plate, car_model, car_carrying_capacity, car_year_of_manufacture, car_use, car_make, car_value', 'required'),
+			array('pk_car_id, fk_cp_id, car_carrying_capacity, car_value', 'numerical', 'integerOnly'=>true),
 			array('car_number_plate', 'length', 'max'=>10),
 			array('car_model, car_use, car_make', 'length', 'max'=>20),
 			array('car_year_of_manufacture', 'length', 'max'=>4),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('pk_car_id, fk_cp_id, car_number_plate, car_model, car_carrying_capacity, car_year_of_manufacture, car_use, car_make', 'safe', 'on'=>'search'),
+			array('pk_car_id, fk_cp_id, car_number_plate, car_model, car_carrying_capacity, car_year_of_manufacture, car_use, car_make, car_value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +73,7 @@ class ClientCarPolicy extends CActiveRecord
 			'car_year_of_manufacture' => 'Year Of Manufacture',
 			'car_use' => 'Use',
 			'car_make' => 'Make',
+			'car_value' => 'Car Value',
 		);
 	}
 
@@ -87,20 +89,21 @@ class ClientCarPolicy extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($clientPolicyID)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('pk_car_id',$this->pk_car_id);
-		$criteria->compare('fk_cp_id',$this->fk_cp_id);
+		$criteria->compare('fk_cp_id',$clientPolicyID);
 		$criteria->compare('car_number_plate',$this->car_number_plate,true);
 		$criteria->compare('car_model',$this->car_model,true);
 		$criteria->compare('car_carrying_capacity',$this->car_carrying_capacity);
 		$criteria->compare('car_year_of_manufacture',$this->car_year_of_manufacture,true);
 		$criteria->compare('car_use',$this->car_use,true);
 		$criteria->compare('car_make',$this->car_make,true);
+		$criteria->compare('car_value',$this->car_value,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -13,6 +13,7 @@
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
+	'htmlOptions'=>array('enctype'=>'multipart/form-data',),
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -35,8 +36,14 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'policy_payment_receipt_no'); ?>
-		<?php echo $form->textField($model,'policy_payment_receipt_no',array('size'=>20,'maxlength'=>20,'placeholder'=>'M-Pesa receipt')); ?>
+		<?php echo $form->textField($model,'policy_payment_receipt_no',array('size'=>20,'maxlength'=>20,'placeholder'=>'Payment receipt number')); ?>
 		<?php echo $form->error($model,'policy_payment_receipt_no'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'policy_payment_receipt_pic');?>
+		<?php echo $form->fileField($model,'policy_payment_receipt_pic',array('size'=>60,'maxlength'=>100,'accept'=>'.jpg,.png,.jpeg')); ?>
+		<?php echo $form->error($model,'policy_payment_receipt_pic'); ?>
 	</div>
 
 	<?php echo $form->hiddenField($model,'policy_payment_status',array('value'=>'Paid')); ?>

@@ -7,6 +7,7 @@
  * @property integer $pk_policy_payment_id
  * @property integer $fk_policy_payment_cp_id
  * @property double $policy_payment_amount
+ * @property string $policy_payment_receipt_pic
  * @property string $policy_payment_receipt_no
  * @property string $policy_payment_status
  * @property string $policy_payment_datetime
@@ -69,6 +70,7 @@ class ClientPolicyPayment extends CActiveRecord
 			'policy_payment_status' => 'Status',
 			'policy_payment_datetime' => 'Datetime',
 			'cover'=>'Cover',
+			'policy_payment_receipt_pic'=>'Receipt Pic',
 		);
 	}
 

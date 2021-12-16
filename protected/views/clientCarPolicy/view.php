@@ -14,6 +14,7 @@ $this->menu=array(
 	//array('label'=>'Delete ClientCarPolicy', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->pk_car_id),'confirm'=>'Are you sure you want to delete this item?')),
 	//array('label'=>'Manage ClientCarPolicy', 'url'=>array('admin')),
 	array('label'=>'My Policies', 'url'=>array('clientPolicies/admin')),
+	array('label'=>'My Cars', 'url'=>array('admin', 'id'=>$model->fk_cp_id)),
 );
 ?>
 
@@ -30,5 +31,6 @@ $this->menu=array(
 		'car_year_of_manufacture',
 		'car_use',
 		'car_make',
+		'car_value',
 	),
 )); ?>

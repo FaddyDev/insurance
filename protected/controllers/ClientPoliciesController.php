@@ -81,6 +81,7 @@ class ClientPoliciesController extends Controller
 			$policy_price = $thePolicy->policy_price;
 			$policy_period = $thePolicy->policy_period;
 			$amount = (round( (($policy_price/$policy_period)*$cp_period) ,2))*$policy_count;
+			if($thePolicy->policy_cover_type == 'Car'){$amount = 0.00;}//for car, we compute amount when the vehicle data is entered
 			$model->cp_policy_amount = $amount;
 
 			//get the expiry period as x months from now, x being the period entered by the client
@@ -91,8 +92,11 @@ class ClientPoliciesController extends Controller
 			$model->cp_paid = 0;
 
 			if($model->save()){
-				$_SESSION['status']='success'; $_SESSION['response']='Request sent! Wait for the provider\'s 
+				$_SESSION['status']='success'; $success='Request sent! Wait for the provider\'s 
 				approval before paying. You\'ll receive email notification'; 
+				if($thePolicy->policy_cover_type == 'Car'){$success .= '<br>However, you must input car details for 
+					amount to be computed. Go to your policies then click view more icon against this policy.';}
+				$_SESSION['response'] = $success;
 				$this->redirect(array('view','id'=>$model->pk_cp_id));
 			}
 			else{

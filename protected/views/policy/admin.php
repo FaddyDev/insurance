@@ -68,8 +68,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		//'policy_price',
 		array(
 			'name'=>'policy_price',
-			'header'=>'Price (Ksh)',
-			'value'=>'$data->policy_price',
+			//'header'=>'Price (Ksh)',
+			'value'=>'$data->policy_cover_type=="Car"? $data->policy_price."%" : "Ksh ".$data->policy_price',
 			),
 		//'policy_period',
 		array(

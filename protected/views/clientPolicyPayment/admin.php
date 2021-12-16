@@ -44,6 +44,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 
 <?php
 $img_view = Yii::app()->baseUrl.'/images/view.png';
+$img_url=Yii::app()->baseUrl.'/images/policy payments/';
  $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'client-policy-payment-grid',
 	'dataProvider'=>$model->search(),
@@ -58,6 +59,11 @@ $img_view = Yii::app()->baseUrl.'/images/view.png';
 			),
 		'policy_payment_amount',
 		'policy_payment_receipt_no',
+		array(
+			'name'=>'policy_payment_receipt_pic',
+		 	'value'=>'$data->policy_payment_receipt_pic==NULL?"":CHtml::link( CHtml::image("'.$img_url.'$data->policy_payment_receipt_pic","",array("width"=>"70%")), array("clientPolicyPayment/view","id"=>$data->pk_policy_payment_id))',
+     		'type'=>'raw',
+  		),
 		'policy_payment_status',
 		'policy_payment_datetime',
 		array(

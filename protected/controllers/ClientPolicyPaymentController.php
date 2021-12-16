@@ -72,6 +72,14 @@ class ClientPolicyPaymentController extends Controller
 		if(isset($_POST['ClientPolicyPayment']))
 		{
 			$model->attributes=$_POST['ClientPolicyPayment'];
+			$upload = CUploadedFile::getInstance($model,'policy_payment_receipt_pic');
+			if(null !== $upload) //if an image was uploaded
+			{				
+				$logo = str_replace(' ','_',$_POST['ClientPolicyPayment']['policy_payment_receipt_no']).'_policy_payment_receipt_pic_'.time().'.'.$upload->getExtensionName();;
+				$path=str_replace('\protected','',Yii::app()->basePath).'\\images\\policy payments\\'.$logo;
+				$upload->saveAs($path);
+				$model->policy_payment_receipt_pic = $logo;
+			}
 			$model->policy_payment_datetime = (new DateTime())->format('Y-m-d H:i:s');
 			if($model->save()){
 				$theClientPolicy->cp_paid=1;

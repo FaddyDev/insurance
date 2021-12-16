@@ -51,7 +51,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'policy_price'); ?>
-		<?php echo $form->textField($model,'policy_price',array('placeholder'=>'in Ksh', 'onkeypress'=>'return numsonly(event);')); ?>
+		<?php echo $form->textField($model,'policy_price',array('placeholder'=>'in Ksh for others, or % for car', 'onkeypress'=>'return numsonly(event);')); ?>
 		<?php echo $form->error($model,'policy_price'); ?>
 	</div>
 

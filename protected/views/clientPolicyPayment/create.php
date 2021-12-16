@@ -73,7 +73,9 @@ $this->menu=array(
 		<li>Enter amount <strong><?php echo $theClientPolicy->cp_policy_amount; ?></strong></li>
 		<li>Enter PIN then send</li>
 	</ol>
-	<span>Input the receipt number in the field below then click create</span>
+	<span>Input the receipt number in the field below then click create</span>	
 </p>
+<p>Alternatively, you can deposit the money at an Equity Bank or agent to A/C No. 011023435467 or 
+	KCB 23459876542. Input the receipt number in the text field and attach a picture of the receipt.
 
 <?php $this->renderPartial('_form', array('model'=>$model,'fkPolicy'=>$theClientPolicy->pk_cp_id,'amount'=>$theClientPolicy->cp_policy_amount)); ?>

@@ -51,8 +51,9 @@ class ClientPolicyPaymentController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = ClientPolicyPayment::model()->findByAttributes(array('fk_policy_payment_cp_id'=>$id));
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model/*$this->loadModel($id)*/,
 		));
 	}
 

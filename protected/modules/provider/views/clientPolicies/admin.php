@@ -46,6 +46,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php 
 $img_approve = Yii::app()->baseUrl.'/images/check.png';
 $img_reject = Yii::app()->baseUrl.'/images/cancel.png';
+$img_view = Yii::app()->baseUrl.'/images/view.png';
 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'client-policies-grid',
@@ -82,7 +83,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'cp_status',
 		array(
 			'header'=>'Payment',
-		 	'value'=>'$data->cp_paid==1?"Paid" : "Not Paid"',
+		 	'value'=>'$data->cp_paid==1?"Paid<br>".CHtml::link( CHtml::image("'.$img_view.'","",array("title"=>"View Payment Info")), array("clientPolicyPayment/view","id"=>$data->pk_cp_id)) : "Not Paid"',
      		'type'=>'raw',
   		),
 		array(

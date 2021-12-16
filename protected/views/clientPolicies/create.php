@@ -44,13 +44,12 @@ if(isset($_SESSION['status']) && isset($_SESSION['response'])){
 		//'policy_price',
 		array(
 			'name'=>'policy_price',
-			'header'=>'Price (Ksh)',
-			'value'=>$thePolicy->policy_price,
+			//'label'=>'Price (Ksh)',
+			'value'=>$thePolicy->policy_cover_type=="Car"? $thePolicy->policy_price."%" : "Ksh ".$thePolicy->policy_price,
 			),
 		//'policy_period',
 		array(
-			'name'=>'policy_period',
-			'header'=>'Period (months)',
+			'label'=>'Period (months)',
 			'value'=>$thePolicy->policy_period,
 			),
 		'policy_description',

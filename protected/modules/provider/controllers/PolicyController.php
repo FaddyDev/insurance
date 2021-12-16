@@ -94,6 +94,11 @@ class PolicyController extends Controller
 		if(isset($_POST['Policy']))
 		{
 			$model->attributes=$_POST['Policy'];
+			if($_POST['Policy']['policy_cover_type'] == 'Car' && $_POST['Policy']['policy_price'] > 100)
+			{
+				$_SESSION['status']='fail'; $_SESSION['response']='Failed! Price of car policy is in % of car value; the price you input, therefore, cannot exceed 100';
+				$this->redirect(Yii::app()->request->urlReferrer);
+			}
 			//$model
 			if($model->save()){
 				//$this->redirect(array('view','id'=>$model->pk_policy_id));
@@ -125,6 +130,11 @@ class PolicyController extends Controller
 		if(isset($_POST['Policy']))
 		{
 			$model->attributes=$_POST['Policy'];
+			if($_POST['Policy']['policy_cover_type'] == 'Car' && $_POST['Policy']['policy_price'] > 100)
+			{
+				$_SESSION['status']='fail'; $_SESSION['response']='Failed! Price of car policy is in % of car value; the price you input, therefore, cannot exceed 100';
+				$this->redirect(Yii::app()->request->urlReferrer);
+			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->pk_policy_id));
 		}

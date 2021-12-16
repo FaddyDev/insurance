@@ -32,7 +32,7 @@ class ClientCarPolicyController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','view','viewCar'),
+				'actions'=>array('create','update','admin','view','viewCar','delete'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -65,9 +65,8 @@ class ClientCarPolicyController extends Controller
 			$this->redirect(array('create','clientPolicyID'=>$clientPolicyID));
 		}
 		else{
-			//record exists, go to view
-			$id = $model->pk_car_id;
-			$this->redirect(array('view','id'=>$id));
+			//records exist, go to admin
+			$this->redirect(array('admin','id'=>$clientPolicyID));
 		}
 	}
 
@@ -79,7 +78,6 @@ class ClientCarPolicyController extends Controller
 	{
 		$model=new ClientCarPolicy;
 		$clientPolicyID = Yii::app()->getRequest()->getParam('clientPolicyID');
-		//$theClientPolicy = ClientPolicies::model()->findByPk($clientPolicyID);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -87,6 +85,16 @@ class ClientCarPolicyController extends Controller
 		if(isset($_POST['ClientCarPolicy']))
 		{
 			$model->attributes=$_POST['ClientCarPolicy'];
+			$theClientPolicy = ClientPolicies::model()->findByPk($clientPolicyID);
+			$policy_price = $theClientPolicy->fkCpPolicy->policy_price;//%
+			$policy_period = $theClientPolicy->fkCpPolicy->policy_period;//months
+			$cp_period = $theClientPolicy->cp_policy_period;//months
+			$policy_count = $theClientPolicy->cp_policy_count;
+			$car_value = $_POST['ClientCarPolicy']['car_value'];
+			$amount = (round( (( (($policy_price*$car_value)/100)/$policy_period )*$cp_period) ,2))*$policy_count;
+			$prev_amount = $theClientPolicy->cp_policy_amount;
+			$theClientPolicy->cp_policy_amount = ($prev_amount+$amount);
+			$theClientPolicy->save();
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->pk_car_id));
 		}
@@ -151,6 +159,7 @@ class ClientCarPolicyController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$clientPolicyID = Yii::app()->getRequest()->getParam('id');
 		$model=new ClientCarPolicy('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ClientCarPolicy']))
@@ -158,6 +167,7 @@ class ClientCarPolicyController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
+			'clientPolicyID'=>$clientPolicyID,
 		));
 	}
 
